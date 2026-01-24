@@ -1,0 +1,39 @@
+baseURL = 'https://panchalutsav.github.io/blog/'
+languageCode = 'en-us'
+title = "Utsav's blog"
+
+
+[[params.socialIcons]]
+name = "github"
+url = "https://github.com/panchalutsav"
+
+[[params.socialIcons]]
+name = "twitter"
+url = "https://x.com"
+
+[[params.socialIcons]]
+name = "Rss"
+url = "/index.xml"
+
+[params]
+  goToTop = true
+  toc = true
+
+[module]
+  [[module.imports]]
+    path = "github.com/hugo-sid/hugo-blog-awesome"
+
+[markup]
+  [markup.highlight]
+    noClasses = false
+  [markup.goldmark.renderer]
+    unsafe = true
+	[markup.tableOfContents]
+		startLevel = 2 
+		endLevel = 4 
+		ordered = false 
+
+[Languages.en-gb.params.author]
+intro = "Utsav's log"
+  name = "Utsav Panchal"
+  description = "Welcome"
