@@ -1,0 +1,32 @@
+name: Deploy Blog
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout blog repo
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: latest
+          extended: true
+
+      - name: Build blog
+        run: hugo --minify
+
+      - name: Deploy to portfolio repo
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          personal_token: ${{ secrets.PAT }}
+          external_repository: panchalutsav/panchalutsav.github.io
+          publish_dir: ./public
+          destination_dir: blog
+          keep_files: true
