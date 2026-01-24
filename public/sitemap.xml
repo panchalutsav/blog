@@ -2,17 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/blog/posts/my-first-post/</loc>
+    <loc>https://panchalutsav.github.io/blog/posts/my-second-post/</loc>
+    <lastmod>2026-01-24T11:59:40+01:00</lastmod>
+  </url><url>
+    <loc>https://panchalutsav.github.io/blog/posts/</loc>
+    <lastmod>2026-01-24T11:59:40+01:00</lastmod>
+  </url><url>
+    <loc>https://panchalutsav.github.io/blog/</loc>
+    <lastmod>2026-01-24T11:59:40+01:00</lastmod>
+  </url><url>
+    <loc>https://panchalutsav.github.io/blog/posts/my-first-post/</loc>
     <lastmod>2026-01-24T11:04:20+01:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/blog/posts/</loc>
-    <lastmod>2026-01-24T11:04:20+01:00</lastmod>
+    <loc>https://panchalutsav.github.io/blog/categories/</loc>
   </url><url>
-    <loc>http://localhost:1313/blog/</loc>
-    <lastmod>2026-01-24T11:04:20+01:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/blog/categories/</loc>
-  </url><url>
-    <loc>http://localhost:1313/blog/tags/</loc>
+    <loc>https://panchalutsav.github.io/blog/tags/</loc>
   </url>
 </urlset>
