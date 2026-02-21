@@ -18,6 +18,7 @@ url = "/index.xml"
 [params]
   goToTop = true
   toc = true
+  math = true
 
 [module]
   [[module.imports]]
@@ -32,6 +33,14 @@ url = "/index.xml"
 		startLevel = 2 
 		endLevel = 4 
 		ordered = false 
+
+[menu]
+
+  [[menu.main]]
+    name = "About"
+    url = "http://panchalutsav.github.io"
+    weight = 10
+    params = { target = "_blank" }
 
 [Languages.en-gb.params.author]
 intro = "Utsav's log"

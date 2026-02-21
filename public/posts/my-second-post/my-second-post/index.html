@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en-us"><head><script src="/blog/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=blog/livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="content-type" content="text/html">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title itemprop="name">Actor Critic Methods in Deep RL | Utsav&#39;s blog</title>
+<meta property="og:title" content="Actor Critic Methods in Deep RL | Utsav&#39;s blog" />
+<meta name="twitter:title" content="Actor Critic Methods in Deep RL | Utsav&#39;s blog" />
+<meta itemprop="name" content="Actor Critic Methods in Deep RL | Utsav&#39;s blog" />
+<meta name="application-name" content="Actor Critic Methods in Deep RL | Utsav&#39;s blog" />
+<meta property="og:site_name" content="" />
+
+<meta name="description" content="">
+<meta itemprop="description" content="" />
+<meta property="og:description" content="" />
+<meta name="twitter:description" content="" />
+
+<meta property="og:locale" content="en-us" />
+<meta name="language" content="en-us" />
+
+  <link rel="alternate" hreflang="en-gb" href="http://localhost:1313/blog/posts/my-second-post/my-second-post/" title="" />
+
+
+
+
+
+    
+    
+    
+
+    <meta property="og:type" content="article" />
+    <meta property="og:article:published_time" content=2026-01-24T11:59:40&#43;0100 />
+    <meta property="article:published_time" content=2026-01-24T11:59:40&#43;0100 />
+    <meta property="og:url" content="http://localhost:1313/blog/posts/my-second-post/my-second-post/" />
+
+    
+    <meta property="og:article:author" content="Utsav Panchal" />
+    <meta property="article:author" content="Utsav Panchal" />
+    <meta name="author" content="Utsav Panchal" />
+    
+    
+
+    
+
+    <script defer type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "Article",
+        "headline": "Actor Critic Methods in Deep RL",
+        "author": {
+        "@type": "Person",
+        "name": ""
+        },
+        "datePublished": "2026-01-24",
+        "description": "",
+        "wordCount":  1213 ,
+        "mainEntityOfPage": "True",
+        "dateModified": "2026-01-24",
+        "image": {
+        "@type": "imageObject",
+        "url": ""
+        },
+        "publisher": {
+        "@type": "Organization",
+        "name": "Utsav\u0027s blog"
+        }
+    }
+    </script>
+
+
+<meta name="generator" content="Hugo 0.154.5">
+
+    
+    <meta property="og:url" content="http://localhost:1313/blog/posts/my-second-post/my-second-post/">
+  <meta property="og:site_name" content="Utsav&#39;s blog">
+  <meta property="og:title" content="Actor Critic Methods in Deep RL">
+  <meta property="og:description" content="The RL problem In reinforcement learning, the purpose of the agent is to learn by interacting with its environment. A policy defines the agent’s way of behaving at a given time. Policy is the agents behavior function, denoted with π, which tells which action to take in a given state.
+At each given time step t, the agent is given a state representation $s_t$, and it outputs an action $a_t$ following the policy π. Mathematically it is described as π ($a_t$|$s_t$).">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2026-01-24T11:59:40+01:00">
+    <meta property="article:modified_time" content="2026-01-24T11:59:40+01:00">
+
+
+    
+    
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Actor Critic Methods in Deep RL">
+  <meta name="twitter:description" content="The RL problem In reinforcement learning, the purpose of the agent is to learn by interacting with its environment. A policy defines the agent’s way of behaving at a given time. Policy is the agents behavior function, denoted with π, which tells which action to take in a given state.
+At each given time step t, the agent is given a state representation $s_t$, and it outputs an action $a_t$ following the policy π. Mathematically it is described as π ($a_t$|$s_t$).">
+
+
+    
+
+    <link rel="canonical" href="http://localhost:1313/blog/posts/my-second-post/my-second-post/">
+    <link href="/blog/style.min.2d921c18cf1ec555ffc03d59a8adc211c402c68c930c27d6a0c306ab175a8d09.css" rel="stylesheet">
+    <link href="/blog/code-highlight.min.706d31975fec544a864cb7f0d847a73ea55ca1df91bf495fd12a177138d807cf.css" rel="stylesheet">
+
+    
+    <link rel="apple-touch-icon" sizes="180x180" href="/blog/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/blog/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/blog/icons/favicon-16x16.png">
+    <link rel="mask-icon" href="/blog/icons/safari-pinned-tab.svg">
+    <link rel="shortcut icon" href="/blog/favicon.ico">
+
+
+
+
+<link rel="manifest" href="http://localhost:1313/blog/site.webmanifest">
+
+<meta name="msapplication-config" content="/blog/browserconfig.xml">
+<meta name="msapplication-TileColor" content="#2d89ef">
+<meta name="theme-color" content="#434648">
+    <meta name="color-scheme" content="light dark">
+
+    
+    <link rel="icon" type="image/svg+xml" href="/blog/icons/favicon.svg">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"
+    integrity="sha512-fHwaWebuwA7NSF5Qg/af4UeDx9XqUpYpOGgubo3yWu+b2IQR4UeQwbb42Ti7gVAjNtVoI/I9TEoYeu9omwcC6g==" crossorigin="anonymous" crossorigin="anonymous" />
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"
+    integrity="sha512-LQNxIMR5rXv7o+b1l8+N1EZMfhG7iFZ9HhnbJkTp4zjNr5Wvst75AqUeFDxeRUa7l5vEDyUiAip//r+EFLLCyA=="
+    crossorigin="anonymous"></script>
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    integrity="sha512-iWiuBS5nt6r60fCz26Nd0Zqe0nbk1ZTIQbl3Kv7kYsX+yKMUFHzjaH2+AnM6vp2Xs+gNmaBAVWJjSmuPw76Efg==" crossorigin="anonymous" onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '$', right: '$', display: false}
+      ]
+    });"></script>
+
+    
+</head>
+<body data-theme = "" class="notransition">
+
+<script src="/blog/js/theme.js"></script>
+
+<div class="navbar" role="navigation">
+    <nav class="menu" aria-label="Main Navigation">
+        <a href="http://localhost:1313/blog/" class="logo">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" 
+viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" 
+stroke-linejoin="round" class="feather feather-home">
+<title>Home</title>
+<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+<polyline points="9 22 9 12 15 12 15 22"></polyline>
+</svg>
+        </a>
+        <input type="checkbox" id="menu-trigger" class="menu-trigger" />
+        <label for="menu-trigger">
+            <span class="menu-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" stroke="currentColor" fill="none" viewBox="0 0 14 14"><title>Menu</title><path stroke-linecap="round" stroke-linejoin="round" d="M10.595 7L3.40726 7"></path><path stroke-linecap="round" stroke-linejoin="round" d="M10.5096 3.51488L3.49301 3.51488"></path><path stroke-linecap="round" stroke-linejoin="round" d="M10.5096 10.4851H3.49301"></path><path stroke-linecap="round" stroke-linejoin="round" d="M0.5 12.5V1.5C0.5 0.947715 0.947715 0.5 1.5 0.5H12.5C13.0523 0.5 13.5 0.947715 13.5 1.5V12.5C13.5 13.0523 13.0523 13.5 12.5 13.5H1.5C0.947715 13.5 0.5 13.0523 0.5 12.5Z"></path></svg>
+            </span>
+        </label>
+
+        <div class="trigger">
+            <ul class="trigger-container">
+                
+                
+                <li>
+                    <a class="menu-link " href="http://panchalutsav.github.io">
+                        About
+                    </a>
+                    
+                </li>
+                
+                <li class="menu-separator">
+                    <span>|</span>
+                </li>
+                
+                
+            </ul>
+            <a id="mode" href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" class="mode-sunny" width="21" height="21" viewBox="0 0 14 14" stroke-width="1">
+<title>LIGHT</title><g><circle cx="7" cy="7" r="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></circle><line x1="7" y1="0.5" x2="7" y2="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="2.4" y1="2.4" x2="3.82" y2="3.82" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="0.5" y1="7" x2="2.5" y2="7" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="2.4" y1="11.6" x2="3.82" y2="10.18" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="7" y1="13.5" x2="7" y2="11.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="11.6" y1="11.6" x2="10.18" y2="10.18" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="13.5" y1="7" x2="11.5" y2="7" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="11.6" y1="2.4" x2="10.18" y2="3.82" fill="none" stroke-linecap="round" stroke-linejoin="round"></line></g></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" class="mode-moon" width="21" height="21" viewBox="0 0 14 14" stroke-width="1">
+<title>DARK</title><g><circle cx="7" cy="7" r="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></circle><line x1="7" y1="0.5" x2="7" y2="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="2.4" y1="2.4" x2="3.82" y2="3.82" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="0.5" y1="7" x2="2.5" y2="7" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="2.4" y1="11.6" x2="3.82" y2="10.18" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="7" y1="13.5" x2="7" y2="11.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="11.6" y1="11.6" x2="10.18" y2="10.18" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="13.5" y1="7" x2="11.5" y2="7" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="11.6" y1="2.4" x2="10.18" y2="3.82" fill="none" stroke-linecap="round" stroke-linejoin="round"></line></g></svg>
+            </a>
+        </div>
+    </nav>
+</div>
+
+<div class="wrapper post">
+    <main class="page-content" aria-label="Content">
+        <article>
+            <header class="header">
+                <h1 class="header-title">Actor Critic Methods in Deep RL</h1>
+                
+                
+                
+                <div class="post-meta">
+                    <time datetime="2026-01-24T11:59:40&#43;01:00" itemprop="datePublished"> 24 Jan 2026 </time>
+                </div>
+                
+            </header>
+            
+    
+    <details class="toc" ZgotmplZ>
+        <summary><b>Table of Contents</b></summary>
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#the-rl-problem">The RL problem</a></li>
+            <li><a href="#online-rl-with-policy-gradients">Online-RL with Policy Gradients</a></li>
+            <li><a href="#improving-policy-gradients">Improving Policy Gradients</a></li>
+            <li><a href="#actor-critic">Actor Critic</a></li>
+            <li><a href="#references">References</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </details>
+            <div class="page-content">
+                <h4 id="the-rl-problem">The RL problem</h4>
+<p>In reinforcement learning, the purpose of the agent is to learn by interacting with its environment. A policy defines the agent’s way of behaving at a given time. Policy is the agents behavior function, denoted with π, which tells which action to take in a given state.</p>
+<p>At each given time step t, the agent is given a state representation $s_t$, and it outputs an action $a_t$ following the policy π. Mathematically it is described as π ($a_t$|$s_t$).</p>
+<p>Following the policy π ($a_t$|$s_t$), the agent receives a scalar reward $r_t$ and it is transitioned to next state $s_{t+1}$. The goal of the agent is to maximize the cummulative rewards it receives in the long run. But how do we define that formally ? Generally we wish to maximize the <em>expected return</em> $G_t$, where $G_t$ is defined as the sum of rewards in future time steps.</p>
+<p>$G_t$ = $r_{t+1}$ + $r_{t+2}$ + $r_{t+3}$ + &hellip;+ $r_{T}$<br>
+where T is the final time step.</p>
+<h5 id="value-function">Value Function</h5>
+<p>Value functions tells us how good it is for the agent to be in a particular state (or how good it is to perform in a given state). By <em>how good</em>, here we mean in terms of expected return or sum of future rewards $G_t$.</p>
+<p>Value of a state is defined as $v_π(s)$ which denotes the expected return starting from state s and following the policy π. Mathematically it is described as</p>
+<p>$v_π(s)$ = $E_π$[$G_t$ | S=$s_t$] = $E_π$$[\sum_{k=0}^{\infty} \gamma^k R_{t+k+1} | S=s_t]$</p>
+<p>$\gamma^k$ denotes the discounting factor $\in$ [0,1] to penalize the future rewards.</p>
+<p>$v_π(s)$ is also known as <strong>state-value</strong>, which denotes the value of the given state $s_t$.</p>
+<p>We also define <strong>action-value</strong>, which denotes the value of taking action <em>a</em> in a given state <em>s</em> and following the policy $\pi$. It is described as $q_π(s, a)$</p>
+<p>$q_π(s, a) = E_π[G_t | S=s_t, A=a_t] = E_π[\sum_{k=0}^{\infty} \gamma^k R_{t+k+1} | S=s_t, A=a_t]$</p>
+<!-- ![picture](value-function-diagram.png) -->
+<img src="./value-function-diagram.png" alt="State-value explanation" width="500"/>
+<p>The difference between $Q_π(s, a)$ and $V_π(s)$ is known as <strong>Advantage function</strong> which tells how much better is to take action <em>a</em> than follow policy $\pi$ in state <em>s</em>.</p>
+<p>$A_\pi(s) = Q_\pi(s, a) - V_\pi(s)$</p>
+<h4 id="online-rl-with-policy-gradients">Online-RL with Policy Gradients</h4>
+<p>Policy Gradient Methods optimize the policy $\pi_\theta (a | s)$. They adjust the parameters $\theta$ of the model in such a way that the actions leading to higher rewards become more likely. The objective function is <em>J($\theta$)</em> represents the expected return (total reward) of the policy. The goal of policy optimization to maximize expected episodic rewards  <em>J($\theta$)</em>.</p>
+<p>$J(\theta) = E_{\pi_\theta} \left[ \sum_{t \in 0:T} \gamma^t R_t | S_0 = s_0 \right]$</p>
+<p>where $\gamma$ is the discount factor.</p>
+<p>Below steps describes <a href="https://link.springer.com/article/10.1007/BF00992696">REINFORCE</a> algorithm, which was the first policy gradient method.</p>
+<blockquote>
+<ol>
+<li>Rollout N trajectories in the environment, using $\pi_\theta$ as the policy function</li>
+<li>Compute the policy gradient estimation $\nabla_\theta J(\theta)$</li>
+<li>Update the policy by gradient ascent: $\theta_{i+1}$ &lt;- $ \theta_i + \alpha \nabla_\theta J(\theta)$</li>
+</ol>
+</blockquote>
+<p>The $\nabla_\theta J(\theta)$ is the Policy Log Likelihood which says, &ldquo;What direction should I move my parameters to make this action more likely?&rdquo;</p>
+<p>$\nabla_\theta J(\theta) \approx
+\frac{1}{N} \sum_{i=1}^{N}
+\sum_{t=1}^{T}
+\nabla_\theta \log \pi_\theta(a_{i,t} \mid s_{i,t})
+\left(
+\sum_{t&rsquo;=t}^{T} r(s_{i,t&rsquo;}, a_{i,t&rsquo;}) - b
+\right)$</p>
+<p>where,</p>
+<ul>
+<li>
+<p>$\sum_{i=1}^{N}$ is samples collected from the policy.</p>
+</li>
+<li>
+<p>$\nabla_\theta \log \pi_\theta(a_{i,t} \mid s_{i,t})$ is policy log-likelihood i.e. probability of taking $a_t$ in state $s_t$</p>
+</li>
+<li>
+<p>$\sum_{t&rsquo;=t}^{T} r(s_{i,t&rsquo;}, a_{i,t&rsquo;})$ is defined as <em>&ldquo;reward-to-go&rdquo;</em> which is the sum of total rewards starting from time step <em>t</em>.</p>
+</li>
+<li>
+<p><em>b</em> is the baseline which is subtracted from the return to
+reduce the variance of gradient estimate.</p>
+</li>
+</ul>
+<img src="policy-gradient.png" alt="Policy Gradient explanation" width="300"/>
+<h5 id="what-is-dissatisfying-about-policy-gradients-">What is dissatisfying about Policy Gradients ?</h5>
+<p>Policy gradients are conceptually clean, but suffers from high variance, sample efficiency and unstable learning.</p>
+<ul>
+<li>
+<p><strong>The Wrong Credit Problem:</strong>
+It uses same returns for all actions in a trajectory which makes it hard to know which actions really deserved credit or blame. Imagine a robot takes a step forward at time step $t^4$ and then falls backward at $t^5$. Because the <strong>reward-to-go</strong> was low during that episode, the math pushes down the likelihood of every action in that sequence.</p>
+</li>
+<li>
+<p><strong>Sparse Rewards Problem:</strong>
+Imagine a robot trying to fold a jacket. At time step $t^2$ it folds the sleeves and $t^3$ it flattens the jacket and at $t^4$ it folds the jacket. However if the rewards are sparse (meaning the robot only gets a &ldquo;1&rdquo; for a perfectly folded jacket and &ldquo;0&rdquo; for everything else), the agent cannot distinguish between which actions are beneficial since it receives the same reward for time step 2 and 3.</p>
+</li>
+</ul>
+<p>This makes the learning sample-efficient. Policy-gradient alorithms doesn&rsquo;t make efficient use of data. However, can we actually learn <em>What actions are good or bad?</em></p>
+<h4 id="improving-policy-gradients">Improving Policy Gradients</h4>
+<p>Remember that in our policy gradient algorithm above, $\sum_{t&rsquo;=t}^{T} r(s_{i,t&rsquo;}, a_{i,t&rsquo;})$ is denoted as <em>reward-to-go</em> which is the estimate of future rewards if we take action $a_t$ in state $s_t$.</p>
+<img src="sumofrewards.png" alt="Sum of future rewards" width="300"/>
+<p>If we just sum up the rewards from one specific trajectory, we are looking at just one possible outcome which might be an outlier, leading to poor estimates of our model. However, can we get a better estimate ?</p>
+<p>Instead of using sum of future rewards, we can use <em>action-value</em> estimate Q$(s_t, a_t)$. Instead of just one random sample, Q$(s_t, a_t)$, represents the expected (average) future rewards if we take action <strong>a</strong> in state <strong>s</strong> and follow our policy thereafter.</p>
+<p>$\nabla_\theta J(\theta) \approx
+\frac{1}{N} \sum_{i=1}^{N}
+\sum_{t=1}^{T}
+\nabla_\theta \log \pi_\theta(a_{i,t} \mid s_{i,t})
+\left(
+Q(s_t, a_t) - b
+\right)$</p>
+<p><strong>But what about baseline b ?</strong><br>
+The best baseline to use is the Average Reward of that state,
+$b = \frac{1}{N} \sum_{i} Q(s_{i,t}, a_{i,t})$.</p>
+<p>Remember that $V_\pi(s_t)$ is defined as expected value of <em>Q</em> across all possible actions.<br>
+$V(s_t) = E_{a_t \sim \pi_{\theta}(\cdot|s_t)} [Q(s_t, a_t)]$</p>
+<p>Thus we can replace the above baseline <em>b</em> with Value Function $V_\pi(s_t)$. So now we can write the gradient update as,</p>
+<p>$\nabla_\theta J(\theta) \approx
+\frac{1}{N} \sum_{i=1}^{N}
+\sum_{t=1}^{T}
+\nabla_\theta \log \pi_\theta(a_{i,t} \mid s_{i,t})
+\left(
+Q(s_t, a_t) - V_\pi(s_t)
+\right)$.</p>
+<p>Remember that, $Q(s_t, a_t) - V_\pi(s_t)$ is defined as Advantage function.</p>
+<p>$\nabla_\theta J(\theta) \approx
+\frac{1}{N} \sum_{i=1}^{N}
+\sum_{t=1}^{T}
+\nabla_\theta \log \pi_\theta(a_{i,t} \mid s_{i,t})
+A(s_{i, t}, a_{i, t})$.</p>
+<p>Now it would be very logical to have better estimates of Advantage function, since it can assist in much better policy updates. Better estimates of A leads to less noisy gradients which helps in reducing variance during policy update and this is exactly what Actor-Critic does.</p>
+<h4 id="actor-critic">Actor Critic</h4>
+<p>Actor-Critic are the type of <a href="https://en.wikipedia.org/wiki/Temporal_difference_learning">Temporal-difference (TD)</a> methods which have a seperate policy and Value function.</p>
+<ul>
+<li><strong>Actor:</strong> This is a policy function $\pi_{\theta}(a|s)$ where $\theta$ are the parameters of the actor. The goal is find the parameters $\theta$ that maximizes the expected reward $J_\theta$.</li>
+<li><strong>Critic:</strong> It is the estimated value function. It can be either $V_{\pi}(s)$ or $Q_{\pi}(s, a)$.</li>
+</ul>
+<p>Let&rsquo;s assume a case where the state-value function $V_{\phi}(s)$ is used for critic where $\phi$ are the parameters of the critic network. Here&rsquo;s how the vanilla actor-critic algorithm looks like.</p>
+<blockquote>
+<ol>
+<li>Sample action a~$\pi_\theta(a|s)$ and get (s, a, s&rsquo;, $r_i$)</li>
+<li>Compute the TD(1) error $\delta_i$ = $r_i + \gamma V_\phi(s&rsquo;) - V_\phi(s_i)$.</li>
+<li>Update the critic parameters $\phi$ &lt;&ndash; $\phi + \alpha \delta_i \Delta_\phi (V_\phi(s))$</li>
+<li>Update the actor parameters $\theta$ &lt;&ndash; $\theta + \beta \delta_i \Delta log _\pi(a|s)$</li>
+</ol>
+</blockquote>
+<h4 id="references">References</h4>
+<ol>
+<li>Policy Gradient Methods, <a href="https://en.wikipedia.org/wiki/Policy_gradient_method">https://en.wikipedia.org/wiki/Policy_gradient_method</a></li>
+<li>Richard S. Sutton and Andrew G. Barto. <a href="https://web.stanford.edu/class/psych209/Readings/SuttonBartoIPRLBook2ndEd.pdf">Reinforcement Learning: An Introduction; 2nd Edition. 2018</a></li>
+<li>lilianweng.github.io, <a href="https://lilianweng.github.io/posts/2018-04-08-policy-gradient/">https://lilianweng.github.io/posts/2018-04-08-policy-gradient/</a></li>
+<li>Sergey Levine, <a href="https://rail.eecs.berkeley.edu/deeprlcourse-fa23/">https://rail.eecs.berkeley.edu/deeprlcourse-fa23/</a></li>
+</ol>
+
+            </div>
+        </article></main>
+</div>
+<footer class="footer">
+    <span class="footer_item"> </span>
+    &nbsp;
+
+    <div class="footer_social-icons">
+<a href="https://github.com/panchalutsav" target="_blank" rel="noopener noreferrer me"
+    title="Github">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+    stroke-linecap="round" stroke-linejoin="round">
+    <path
+        d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+    </path>
+</svg>
+</a>
+<a href="https://x.com" target="_blank" rel="noopener noreferrer me"
+    title="Twitter">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+    stroke-linecap="round" stroke-linejoin="round">
+    <path
+        d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z">
+    </path>
+</svg>
+</a>
+<a href="/index.xml" target="_blank" rel="noopener noreferrer me"
+    title="Rss">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+    stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 11a9 9 0 0 1 9 9" />
+    <path d="M4 4a16 16 0 0 1 16 16" />
+    <circle cx="5" cy="19" r="1" />
+</svg>
+</a>
+</div>
+    <small class="footer_copyright">
+        © 2026 Utsav Panchal.
+        Powered by <a href="https://github.com/hugo-sid/hugo-blog-awesome" target="_blank" rel="noopener">Hugo blog awesome</a>.
+    </small>
+</footer><a href="#" title="Go to top" id="totop">
+    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" stroke="currentColor" viewBox="0 96 960 960">
+    <path d="M283 704.739 234.261 656 480 410.261 725.739 656 677 704.739l-197-197-197 197Z"/>
+</svg>
+
+</a>
+
+
+    
+
+
+
+
+
+
+    
+    <script async src="http://localhost:1313/blog/js/main.js" ></script>
+
+    
+
+</body>
+</html>

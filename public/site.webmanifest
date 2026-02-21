@@ -1,7 +1,7 @@
 {
     "name": "Utsav's blog",
     "short_name": "Utsav's blog",
-    "start_url": "https://panchalutsav.github.io/blog/",
+    "start_url": "http://localhost:1313/blog/",
     "theme_color": "#434648",
     "background_color": "#ffffff",
     "display": "standalone",
