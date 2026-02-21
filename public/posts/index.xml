@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Posts on Utsav&#39;s blog</title>
     <link>http://localhost:1313/blog/posts/</link>
     <description>Recent content in Posts on Utsav&#39;s blog</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo -- 0.154.5</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 24 Jan 2026 11:59:40 +0100</lastBuildDate><atom:link href="http://localhost:1313/blog/posts/index.xml" rel="self" type="application/rss+xml" />
+    <managingEditor>panchalutsav274@gmail.com (Utsav Panchal)</managingEditor>
+    <webMaster>panchalutsav274@gmail.com (Utsav Panchal)</webMaster>
+    <lastBuildDate>Sat, 24 Jan 2026 11:59:40 +0100</lastBuildDate>
+    <atom:link href="http://localhost:1313/blog/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Actor Critic Methods in Deep RL</title>
       <link>http://localhost:1313/blog/posts/my-second-post/my-second-post/</link>
-      <pubDate>Sat, 24 Jan 2026 11:59:40 +0100</pubDate>
-      
+      <pubDate>Sat, 24 Jan 2026 11:59:40 +0100</pubDate><author>panchalutsav274@gmail.com (Utsav Panchal)</author>
       <guid>http://localhost:1313/blog/posts/my-second-post/my-second-post/</guid>
-      
       <description>&lt;h4 id=&#34;the-rl-problem&#34;&gt;The RL problem&lt;/h4&gt;
 &lt;p&gt;In reinforcement learning, the purpose of the agent is to learn by interacting with its environment. A policy defines the agent’s way of behaving at a given time. Policy is the agents behavior function, denoted with π, which tells which action to take in a given state.&lt;/p&gt;
 &lt;p&gt;At each given time step t, the agent is given a state representation $s_t$, and it outputs an action $a_t$ following the policy π. Mathematically it is described as π ($a_t$|$s_t$).&lt;/p&gt;</description>
-      
     </item>
-    
   </channel>
 </rss>

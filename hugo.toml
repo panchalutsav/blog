@@ -19,6 +19,10 @@ url = "/index.xml"
   toc = true
   math = true
 
+[params.author]
+  name = "Utsav Panchal"
+  email = "panchalutsav274@gmail.com"
+
 [module]
   [[module.imports]]
     path = "github.com/hugo-sid/hugo-blog-awesome"
