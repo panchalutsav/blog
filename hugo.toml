@@ -2,6 +2,9 @@ baseURL = 'https://panchalutsav.github.io/blog/'
 languageCode = 'en-us'
 title = "Utsav's blog"
 
+[author]
+  name = "Utsav Panchal"
+  email = "panchalutsav274@gmail.com"
 
 [[params.socialIcons]]
 name = "github"
@@ -46,4 +49,3 @@ url = "/index.xml"
 intro = "Utsav's log"
   name = "Utsav Panchal"
   description = "Welcome"
-  email = "panchalutsav274@gmail.com"
